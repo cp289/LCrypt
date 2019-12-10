@@ -1,0 +1,9 @@
+# Object files
+*.o
+
+# Valgrind files
+vgcore.*
+
+# Misc.
+TODO
+main

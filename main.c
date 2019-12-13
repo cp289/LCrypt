@@ -6,7 +6,6 @@
 #include <stddef.h>
 
 #include "math.h"
-#include "bigint.h"
 
 int main(int argc, char *argv[])
 {

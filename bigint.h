@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+// This is needed for uword_t
 #include "int_math.h"
 
 // Storage sizes

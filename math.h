@@ -5,6 +5,7 @@
 #ifndef MATH_H
 #define MATH_H
 
+// NOTE: bigint.h includes int_math.h
 #include "bigint.h"
 
 // Return the negative of the input

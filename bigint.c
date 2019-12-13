@@ -10,8 +10,6 @@
 #include <string.h>
 
 #include "array.h"
-#include "bigint.h"
-#include "int_math.h"
 #include "math.h"
 
 // Free bigint

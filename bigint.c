@@ -302,6 +302,11 @@ bigint_t bigint_new(char *string)
     for (int i = 0; i < 10; i++)
         bigint_delete(digit + i);
 
+    if (neg) {
+        bigint_t temp_neg = bigint_neg(out);
+        bigint_delete(&out);
+        return temp_neg;
+    }
     return out;
 }
 

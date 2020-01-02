@@ -273,14 +273,14 @@ bigint_t bigint_new(char *string)
     size_t len = strlen(string);
     if (len == 0) {
         fprintf(stderr, "bigint_new: WARNING: input has length zero\n");
-        return bigint_zero(1);
+        return out;
     }
 
     if (string[0] == '-') {
         neg = true;
         if (--len == 0) {
             fprintf(stderr, "bigint_new: WARNING: negative input has length zero\n");
-            return bigint_zero(1);
+            return out;
         }
     }
 
@@ -294,7 +294,9 @@ bigint_t bigint_new(char *string)
         // Here, read each digit and additively construct the output
         const size_t idx = neg + i;
         bigint_t temp_prod = bigint_prod(digit[string[idx] - '0'], bigint_power10(len - i - 1));
-        out = bigint_sum(out, temp_prod);
+        bigint_t temp_sum = bigint_sum(out, temp_prod);
+        bigint_delete(&out);
+        out = temp_sum;
         bigint_delete(&temp_prod);
     }
 

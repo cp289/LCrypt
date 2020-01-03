@@ -2,15 +2,14 @@
  * main.c: Main program file
  */
 
+#include <stdint.h>
 #include <stdio.h>
-#include <stddef.h>
 
 #include "math.h"
 
-int main(int argc, char *argv[])
+// TODO place all test code into file-specific testing methods
+static int main_test(void)
 {
-    bigint_init();
-
     bigint_t a = bigint_zero(5);
     bigint_t b = bigint_zero(5);
 
@@ -109,8 +108,55 @@ int main(int argc, char *argv[])
         bigint_delete(&gcd);
     }
 
+    // Test: 42 as the sum of cubes
+    bigint_t x = bigint_new("-80538738812075974");
+    bigint_t y = bigint_new("80435758145817515");
+    bigint_t z = bigint_new("12602123297335631");
+
+    printf("x: %s (neg: %d), y: %s, z: %s\n",
+        p1 = bigint_print(x),
+        is_neg(x),
+        p2 = bigint_print(y),
+        p3 = bigint_print(z));
+    free(p1); free(p2); free(p3);
+
+    bigint_t tmp1, tmp2, tmp3;
+    bigint_t prod1 = bigint_prod(x, tmp1 = bigint_prod(x,x));
+    bigint_t prod2 = bigint_prod(y, tmp2 = bigint_prod(y,y));
+    bigint_t prod3 = bigint_prod(z, tmp3 = bigint_prod(z,z));
+    bigint_delete(&tmp1); bigint_delete(&tmp2); bigint_delete(&tmp3);
+
+    printf("Test 42: %s\n", p1 = bigint_print(tmp1 = bigint_sum(prod1, tmp2 = bigint_sum(prod2, prod3))));
+    free(p1);
+    bigint_delete(&tmp1);
+    bigint_delete(&tmp2);
+
+    bigint_delete(&prod1);
+    bigint_delete(&prod2);
+    bigint_delete(&prod3);
+    bigint_delete(&x);
+    bigint_delete(&y);
+    bigint_delete(&z);
+
+    mod_test();
+}
+
+static void main_init(void)
+{
+    bigint_init();
+}
+
+static void main_exit(void)
+{
     bigint_exit();
     printf("EXIT\n");
+}
+
+int main(int argc, char *argv[])
+{
+    main_init();
+    main_test();
+    main_exit();
 
     return 0;
 }

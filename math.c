@@ -101,6 +101,15 @@ bigint_t bigint_diff(bigint_t a, bigint_t b)
     return out;
 }
 
+// Return whether a == b, i.e. whether a - b == 0
+bool bigint_equals(bigint_t a, bigint_t b)
+{
+    bigint_t diff = bigint_diff(a, b);
+    bool out = is_zero(diff);
+    bigint_delete(&diff);
+    return out;
+}
+
 // Number of bits needed for number
 static size_t bigint_bits(bigint_t n)
 {
